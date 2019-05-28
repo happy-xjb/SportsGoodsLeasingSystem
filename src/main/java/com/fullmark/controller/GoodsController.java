@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +20,8 @@ public class GoodsController {
     private GoodsService goodsService;
 
     @Autowired
-    private OrderService orderService;
+    private OrderService ordersService;
+
 
     @RequestMapping("index")
     public String index(Model model){
@@ -46,14 +45,8 @@ public class GoodsController {
             //1.商品数量减少
             goodsService.reduceNumber(gid,number);
             //2.历史记录更新
-            String format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
-            Date date = null;
-            try {
-                date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(format);
-            } catch (ParseException e) {
-                System.out.println("出现了异常");
-            }
-            orderService.addRecord(uid,gid,number,date);
+            Date date = new Date();
+            ordersService.addRecord(uid,gid,number,date);
             //3.返回success
             return "success";
         }

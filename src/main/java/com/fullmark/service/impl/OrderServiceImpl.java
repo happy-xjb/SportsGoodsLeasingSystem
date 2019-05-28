@@ -6,23 +6,23 @@ import com.fullmark.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
-
     @Override
     public void addRecord(int uid, int gid, int number, Date date) {
-        Order order =new Order();
+        Order order = new Order();
         order.setLeasingby(uid);
         order.setGoods(gid);
         order.setNumber(number);
-        order.setCreatetime(date);
+        order.setCreatetime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date));
         order.setState(0);
-        System.out.println(date);
-        System.out.println("进入了addRecord方法："+order);
+        System.out.println(order);
+        System.out.println("调用mapper");
         orderMapper.insertSelective(order);
     }
 }

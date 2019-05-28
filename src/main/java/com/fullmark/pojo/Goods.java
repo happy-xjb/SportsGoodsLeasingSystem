@@ -11,25 +11,6 @@ public class Goods {
 
     private String picture;
 
-    @Override
-    public String toString() {
-        return "Goods{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", number=" + number +
-                ", picture='" + picture + '\'' +
-                '}';
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -62,4 +43,11 @@ public class Goods {
         this.number = number;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture == null ? null : picture.trim();
+    }
 }

@@ -25,15 +25,8 @@
 
     <script>
         function leastThis(uid,gid) {
-            alert("传入的uid："+uid);
-            alert("传入的gid："+gid);
             var number = $("#"+"gid"+gid).val();
-            alert(typeof (number))
             var rest = $("#"+"rest"+gid).text();
-            var _rest = Number(rest);
-            alert("rest强转："+typeof _rest)
-            alert("您输入的数量是"+number);
-            alert("剩余数量是"+rest);
             if (Number(number)>Number(rest)){
                 alert("当前剩余数量不足！");
                 return;
@@ -48,7 +41,6 @@
                 url:"${pageContext.request.contextPath}/goods/leastThis",
                 data:{uid:uid,gid:gid,number:number},
                 success:function (data) {
-                    alert(data);
                     if (data == 'success'){
                         alert('租赁成功！');
                         location.reload();
