@@ -214,8 +214,8 @@
                 <label for="password2" class="col-xs-2 control-label">确认密码</label>
             <div class="col-xs-5">
                 <input  onblur="checkPassword()"  type="password" class="form-control" id="password2" placeholder="请重新输入密码" name="password">
-                <span id="checkPassword"></span>
             </div>
+            <span id="checkPassword"></span>
         </div>
         <div class="form-group">
             <label for="nickname" class="col-xs-2 control-label">昵称</label>
