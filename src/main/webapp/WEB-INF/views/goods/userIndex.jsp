@@ -44,8 +44,7 @@
                     if (data == 'success'){
                         alert('租赁成功！');
                         location.reload();
-                    }
-                    if (data =='fail'){
+                    }else if (data =='fail'){
                         alert("当前剩余数量不足哦！");
                         location.reload();
                     }
