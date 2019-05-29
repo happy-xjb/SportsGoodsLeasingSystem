@@ -37,7 +37,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="${pageContext.request.contextPath}/user/userIndex">首页</a></li>
                 <li><a href="${pageContext.request.contextPath}/user/userInfo">个人信息</a></li>
-                <li><a href="#">我的租赁</a></li>
+                <li><a href="${pageContext.request.contextPath}/myOrder">我的租赁</a></li>
                 <li><a href="#">历史租赁</a></li>
                 <li><a href="#">退出</a></li>
             </ul>

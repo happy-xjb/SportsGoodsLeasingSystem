@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
@@ -24,5 +25,13 @@ public class OrderServiceImpl implements OrderService {
         System.out.println(order);
         System.out.println("调用mapper");
         orderMapper.insertSelective(order);
+    }
+
+    @Override
+    public List<Order> showMyOrder(Integer uid) {
+        Order order = new Order();
+        order.setLeasingby(uid);
+        order.setState(0);
+        return orderMapper.selectByUsernameAndState(order);
     }
 }
