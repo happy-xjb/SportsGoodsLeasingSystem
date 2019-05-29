@@ -5,22 +5,26 @@ import com.fullmark.pojo.Order;
 import com.fullmark.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@Transactional
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
+
+
     @Override
-    public void addRecord(int uid, int gid, int number, Date date) {
+    public void addRecord(int uid, int gid, int number, Date date) throws RuntimeException {
         Order order = new Order();
         order.setLeasingby(uid);
         order.setGoods(gid);
         order.setNumber(number);
-        order.setCreatetime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date));
+        order.setCreatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
         order.setState(0);
         System.out.println(order);
         orderMapper.insertSelective(order);

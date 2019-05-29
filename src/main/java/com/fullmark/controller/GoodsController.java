@@ -5,6 +5,7 @@ import com.fullmark.service.GoodsService;
 import com.fullmark.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +31,7 @@ public class GoodsController {
         return "goods/userIndex";
     }
 
+    @Transactional
     @RequestMapping("leastThis")
     @ResponseBody
     public String  leastThis(int uid,int gid,int number){
