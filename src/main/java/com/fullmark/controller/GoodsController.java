@@ -35,10 +35,6 @@ public class GoodsController {
     @RequestMapping("leastThis")
     @ResponseBody
     public String  leastThis(int uid,int gid,int number){
-        System.out.println("进入了leastThis的方法");
-        System.out.println("传入的uid："+uid);
-        System.out.println("传入的gid："+gid);
-        System.out.println("传入的number："+number);
         //判断商品数量
         boolean flag=goodsService.isGoodsEnough(gid,number);
 
