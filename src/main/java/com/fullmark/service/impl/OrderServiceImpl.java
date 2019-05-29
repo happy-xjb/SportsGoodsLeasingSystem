@@ -23,7 +23,6 @@ public class OrderServiceImpl implements OrderService {
         order.setCreatetime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date));
         order.setState(0);
         System.out.println(order);
-        System.out.println("调用mapper");
         orderMapper.insertSelective(order);
     }
 
