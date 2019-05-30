@@ -11,4 +11,6 @@ public interface OrderService {
     List<myOrder> showMyOrder(Integer id);
 
     List<myOrder> showHistory(Integer id);
+
+    void backGoods(int oid);
 }

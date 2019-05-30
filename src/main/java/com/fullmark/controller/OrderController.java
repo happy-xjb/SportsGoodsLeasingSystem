@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -36,5 +37,15 @@ public class OrderController {
         model.addAttribute("orders", orders);
         return "order/orderHistory";
 
+    }
+
+
+    //归还
+    @Transactional
+    @RequestMapping("backThis")
+    @ResponseBody
+    public void backThis(int oid){
+        System.out.println("进入了控制器的方法");
+        orderService.backGoods(oid);
     }
 }

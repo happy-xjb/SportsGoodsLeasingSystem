@@ -16,6 +16,21 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
 
+    <script>
+        function back(oid) {
+            alert("进入了js的back方法");
+            alert("传入oid"+oid);
+            $.post({
+                url:"${pageContext.request.contextPath}/backThis",
+                data:{oid:oid},
+                success:function (data) {
+                    alert("归还成功！")
+                    location.reload();
+                }
+            })
+        }
+    </script>
+
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -40,7 +55,7 @@
                 <li><a href="${pageContext.request.contextPath}/user/userInfo">个人信息</a></li>
                 <li><a href="${pageContext.request.contextPath}/myOrder">我的租赁</a></li>
                 <li><a href="${pageContext.request.contextPath}/orderHistory">历史租赁</a></li>
-                <li><a href="#">退出</a></li>
+                <li><a href="${pageContext.request.contextPath}/user/exit">退出</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -61,7 +76,7 @@
                     <td>${order.name}</td>
                     <td>${order.number}</td>
                     <td>${order.createTime}</td>
-                    <td><a href="javascript:void(0)">归还</a></td>
+                    <td><button type="button" class="btn btn-link" onclick="back(${order.id})">归还</button></td>
                 </tr>
             </c:forEach>
         </table>

@@ -3,6 +3,7 @@ package com.fullmark.controller;
 
 import com.fullmark.pojo.User;
 import com.fullmark.service.UserService;
+import jdk.nashorn.internal.ir.ReturnNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,5 +80,11 @@ public class UserController {
         System.out.println("查询出的user是："+user);
         if(user==null)  return "false";
         return "true";
+    }
+
+    @RequestMapping("exit")
+    public String  exit(HttpSession session){
+        session.removeAttribute("user");
+        return "redirect:/login";
     }
 }

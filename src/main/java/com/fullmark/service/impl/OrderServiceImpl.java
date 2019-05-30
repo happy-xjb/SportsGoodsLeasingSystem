@@ -1,6 +1,8 @@
 package com.fullmark.service.impl;
 
+import com.fullmark.dao.GoodsMapper;
 import com.fullmark.dao.OrderMapper;
+import com.fullmark.pojo.Goods;
 import com.fullmark.pojo.Order;
 import com.fullmark.pojo.myOrder;
 import com.fullmark.service.OrderService;
@@ -17,6 +19,9 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
+
+    @Autowired
+    private GoodsMapper goodsMapper;
 
 
     @Override
@@ -41,5 +46,22 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<myOrder> showHistory(Integer id) {
         return orderMapper.selectByLeasingBy(id);
+    }
+
+    @Override
+    public void backGoods(int oid) {
+        //订单状态改变
+        Order order = orderMapper.selectByPrimaryKey(oid);
+        order.setState(1);
+        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        order.setBacktime(date);
+        orderMapper.updateByPrimaryKeySelective(order);
+        //物品数增加
+        Integer gid = order.getGoods();
+        Goods goods = goodsMapper.selectByPrimaryKey(gid);
+        Integer number = goods.getNumber();
+        goods.setNumber(number+order.getNumber());
+        goodsMapper.updateByPrimaryKeySelective(goods);
+        System.out.println("进入了service层");
     }
 }

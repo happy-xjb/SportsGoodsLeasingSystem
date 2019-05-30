@@ -40,7 +40,7 @@
                 <li><a href="${pageContext.request.contextPath}/user/userInfo">个人信息</a></li>
                 <li><a href="${pageContext.request.contextPath}/myOrder">我的租赁</a></li>
                 <li><a href="${pageContext.request.contextPath}/orderHistory">历史租赁</a></li>
-                <li><a href="#">退出</a></li>
+                <li><a href="${pageContext.request.contextPath}/user/exit">退出</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
