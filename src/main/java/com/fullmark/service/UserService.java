@@ -8,4 +8,6 @@ public interface UserService {
     public User getLoginUser(String username);
 
     void register(String username, String password, String nickname, String leasingPassword, int isAdmin);
+
+    User verifyLeasingPassword(int uid, String leasingPassword);
 }

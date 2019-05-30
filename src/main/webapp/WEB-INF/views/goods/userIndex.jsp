@@ -24,6 +24,18 @@
     <script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
 
     <script>
+        var userId;
+        var goodsId;
+
+        function setUidGid(uid,gid) {
+            userId=uid;
+            goodsId=gid;
+        }
+        function clear() {
+            var element = document.getElementById("inputLPwd");
+            element.setAttribute("value","");
+        }
+
         function leastThis(uid,gid) {
             var number = $("#"+"gid"+gid).val();
             var rest = $("#"+"rest"+gid).text();
@@ -37,6 +49,7 @@
             }
 
             /*异步传入控制器*/
+
             $.post({
                 url:"${pageContext.request.contextPath}/goods/leastThis",
                 data:{uid:uid,gid:gid,number:number},
@@ -51,6 +64,21 @@
                 }
             })
 
+        }
+
+        function leastCheck() {
+            var leasingPassword = $('#inputLPwd').val();
+            $.post({
+                url:"${pageContext.request.contextPath}/user/checkLeasingPassword",
+                data:{uid:userId,leasingPassword:leasingPassword},
+                success:function (data) {
+                    if (data =="true"){
+                        leastThis(userId,goodsId);
+                    }else if (data =="false"){
+                        alert("租赁密码错误")
+                    }
+                }
+            })
         }
     </script>
 </head>
@@ -96,7 +124,8 @@
                     <td><img src="${pageContext.request.contextPath}/static/image/${goods.picture}" width="80px" height="80px">${goods.name}</td>
                     <td>${goods.description}</td>
                     <td id='rest${goods.id}'>${goods.number}</td>
-                    <td><a href="javascript:void (0)" onclick="leastThis(${sessionScope.user.id},${goods.id})">租借</a>
+                    <td><%--<a href="javascript:void (0)" onclick="leastThis(${sessionScope.user.id},${goods.id})">租借</a>--%>
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModal" onclick="setUidGid(${sessionScope.user.id},${goods.id})">租借</button>
                         <br>
                         请输入租赁数量：<input type="number" id='gid${goods.id}' class="form-control" value="1" min="1" max="${goods.number}">
                     </td>
@@ -105,5 +134,24 @@
         </table>
     </div>
 </div>
+
+<%--验证支付密码输入框--%>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">请输入租赁密码</h4>
+            </div>
+            <div class="modal-body">
+                <input type="password" class="form-control" id="inputLPwd">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="leastCheck()">确认</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.fullmark.service.impl;
 
+import com.fullmark.dao.OrderMapper;
 import com.fullmark.dao.UserMapper;
 import com.fullmark.pojo.User;
 import com.fullmark.service.UserService;
@@ -43,5 +44,13 @@ public class UserServiceImpl implements UserService {
         user.setLeasingpassword(leasingPassword);
         user.setIsadmin(isAdmin);
         userMapper.insertSelective(user);
+    }
+
+    @Override
+    public User verifyLeasingPassword(int uid, String leasingPassword) {
+        User user = new User();
+        user.setId(uid);
+        user.setLeasingpassword(leasingPassword);
+        return userMapper.selectByIdAndLeasingPassword(user);
     }
 }

@@ -111,4 +111,8 @@
   <select id="selectByUsername" parameterType="string" resultType="user">
     select * from user where username = #{id}
   </select>
+
+  <select id="selectByIdAndLeasingPassword" parameterType="user" resultType="user">
+    select * from user where id=#{id} and leasingPassword=#{leasingpassword}
+  </select>
 </mapper>

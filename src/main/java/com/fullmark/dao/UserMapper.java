@@ -18,4 +18,6 @@ public interface UserMapper {
     User selectByUsernameAndPassword(User user);
 
     User selectByUsername(String username);
+
+    User selectByIdAndLeasingPassword(User user);
 }
