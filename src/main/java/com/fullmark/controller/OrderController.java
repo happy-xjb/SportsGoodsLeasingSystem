@@ -24,9 +24,17 @@ public class OrderController {
     public String myOrder(Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
         Integer id = user.getId();
-        System.out.println("当前登录的用户ID是："+id);
         List<myOrder> orders=orderService.showMyOrder(id);
         model.addAttribute("orders", orders);
         return "order/myOrder";
+    }
+    @RequestMapping("orderHistory")
+    public String orderHistory(Model model,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        Integer id = user.getId();
+        List<myOrder> orders = orderService.showHistory(id);
+        model.addAttribute("orders", orders);
+        return "order/orderHistory";
+
     }
 }

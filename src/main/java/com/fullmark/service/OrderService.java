@@ -9,4 +9,6 @@ public interface OrderService {
     void addRecord(int uid, int gid, int number, Date date);
 
     List<myOrder> showMyOrder(Integer id);
+
+    List<myOrder> showHistory(Integer id);
 }

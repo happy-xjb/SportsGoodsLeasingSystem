@@ -37,4 +37,9 @@ public class OrderServiceImpl implements OrderService {
         order.setState(0);
         return orderMapper.selectByUsernameAndState(order);
     }
+
+    @Override
+    public List<myOrder> showHistory(Integer id) {
+        return orderMapper.selectByLeasingBy(id);
+    }
 }

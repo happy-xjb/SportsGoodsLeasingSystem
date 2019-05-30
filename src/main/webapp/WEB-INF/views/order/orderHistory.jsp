@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 徐健波
-  Date: 2019/5/27
-  Time: 22:21
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -23,36 +16,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
 
-    <script>
-        function leastThis(uid,gid) {
-            var number = $("#"+"gid"+gid).val();
-            var rest = $("#"+"rest"+gid).text();
-            if (Number(number)>Number(rest)){
-                alert("当前剩余数量不足！");
-                return;
-            }
-            if (number<=0){
-                alert("输入值不得小于1");
-                return;
-            }
-
-            /*异步传入控制器*/
-            $.post({
-                url:"${pageContext.request.contextPath}/goods/leastThis",
-                data:{uid:uid,gid:gid,number:number},
-                success:function (data) {
-                    if (data == 'success'){
-                        alert('租赁成功！');
-                        location.reload();
-                    }else if (data =='fail'){
-                        alert("当前剩余数量不足哦！");
-                        location.reload();
-                    }
-                }
-            })
-
-        }
-    </script>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -86,19 +49,21 @@
     <div class="table-responsive">
         <table class="table table-hover">
             <tr>
-                <th>用品名称</th>
-                <th>描述</th>
-                <th>当前剩余数量</th>
-                <th>操作</th>
+                <th>记录编号</th>
+                <th>用品</th>
+                <th>租赁数量</th>
+                <th>租赁时间</th>
+                <th>归还时间</th>
             </tr>
-            <c:forEach var="goods" items="${list}">
+            <c:forEach items="${orders}" var="order">
                 <tr>
-                    <td><img src="${pageContext.request.contextPath}/static/image/${goods.picture}" width="80px" height="80px">${goods.name}</td>
-                    <td>${goods.description}</td>
-                    <td id='rest${goods.id}'>${goods.number}</td>
-                    <td><a href="javascript:void (0)" onclick="leastThis(${sessionScope.user.id},${goods.id})">租借</a>
-                        <br>
-                        请输入租赁数量：<input type="number" id='gid${goods.id}' class="form-control" value="1" min="1" max="${goods.number}">
+                    <td>${order.id}</td>
+                    <td>${order.name}</td>
+                    <td>${order.number}</td>
+                    <td>${order.createTime}</td>
+                    <td>
+                        <c:if test="${order.state==0}">尚未归还</c:if>
+                        <c:if test="${order.state==1}">${order.backTime}</c:if>
                     </td>
                 </tr>
             </c:forEach>
