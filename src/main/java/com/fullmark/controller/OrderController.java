@@ -3,6 +3,7 @@ package com.fullmark.controller;
 
 import com.fullmark.pojo.Order;
 import com.fullmark.pojo.User;
+import com.fullmark.pojo.myOrder;
 import com.fullmark.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class OrderController {
         User user = (User) session.getAttribute("user");
         Integer id = user.getId();
         System.out.println("当前登录的用户ID是："+id);
-        List<Order> orders=orderService.showMyOrder(id);
+        List<myOrder> orders=orderService.showMyOrder(id);
         model.addAttribute("orders", orders);
         return "order/myOrder";
     }

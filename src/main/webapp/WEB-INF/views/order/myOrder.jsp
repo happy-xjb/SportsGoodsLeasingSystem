@@ -58,9 +58,9 @@
             <c:forEach items="${orders}" var="order">
                 <tr>
                     <td>${order.id}</td>
-                    <td>${order.goods}</td>
+                    <td>${order.name}</td>
                     <td>${order.number}</td>
-                    <td>${order.createtime}</td>
+                    <td>${order.createTime}</td>
                     <td><a href="javascript:void(0)">归还</a></td>
                 </tr>
             </c:forEach>

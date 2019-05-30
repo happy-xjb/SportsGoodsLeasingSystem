@@ -2,6 +2,7 @@ package com.fullmark.service.impl;
 
 import com.fullmark.dao.OrderMapper;
 import com.fullmark.pojo.Order;
+import com.fullmark.pojo.myOrder;
 import com.fullmark.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> showMyOrder(Integer uid) {
+    public List<myOrder> showMyOrder(Integer uid) {
         Order order = new Order();
         order.setLeasingby(uid);
         order.setState(0);
