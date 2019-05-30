@@ -59,7 +59,7 @@ public class UserController {
     //管理员主页
     @RequestMapping("adminIndex")
     public String adminIndex(){
-        return "admin/index";
+        return "forward:/goods/adminIndex";
     }
 
     //个人信息页面

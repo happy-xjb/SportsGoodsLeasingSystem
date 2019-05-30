@@ -20,4 +20,6 @@ public interface GoodsMapper {
     List<Goods> selectAll();
 
     void updateReduceNumber(Goods goods);
+
+    void insertAddNew(Goods goods);
 }

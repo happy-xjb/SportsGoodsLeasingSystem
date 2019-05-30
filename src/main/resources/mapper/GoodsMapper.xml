@@ -87,4 +87,8 @@
   <update id="updateReduceNumber" parameterType="goods">
     update goods set number=number-#{number} where id=#{id};
   </update>
+
+  <insert id="insertAddNew" parameterType="goods">
+    insert into goods(name,description,number) values(#{name},#{description},#{number})
+  </insert>
 </mapper>

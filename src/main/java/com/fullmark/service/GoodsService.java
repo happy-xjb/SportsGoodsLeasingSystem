@@ -10,4 +10,8 @@ public interface GoodsService {
     boolean isGoodsEnough(int gid, int number);
 
     void reduceNumber(int gid, int number);
+
+    void editGoods(int gid, String gname, String gdesc, int gnumber);
+
+    void addNew(String gname, String gdesc, int gnumber);
 }

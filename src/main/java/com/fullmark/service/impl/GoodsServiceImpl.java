@@ -34,4 +34,23 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setNumber(number);
         goodsMapper.updateReduceNumber(goods);
     }
+
+    @Override
+    public void editGoods(int gid, String gname, String gdesc, int gnumber) {
+        Goods goods = new Goods();
+        goods.setId(gid);
+        goods.setName(gname);
+        goods.setDescription(gdesc);
+        goods.setNumber(gnumber);
+        goodsMapper.updateByPrimaryKeySelective(goods);
+    }
+
+    @Override
+    public void addNew(String gname, String gdesc, int gnumber) {
+        Goods goods = new Goods();
+        goods.setName(gname);
+        goods.setDescription(gdesc);
+        goods.setNumber(gnumber);
+        goodsMapper.insertAddNew(goods);
+    }
 }

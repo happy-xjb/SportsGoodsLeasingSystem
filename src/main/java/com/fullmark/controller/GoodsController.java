@@ -50,4 +50,25 @@ public class GoodsController {
         }
         return "fail";
     }
+
+    @RequestMapping("adminIndex")
+    public String adminIndex(Model model){
+        List<Goods> goods = goodsService.showGoodsList();
+        model.addAttribute("goodsList", goods);
+        return "admin/index";
+    }
+
+    @RequestMapping("edit")
+    @ResponseBody
+    public String edit(int gid,String gname,String gdesc,int gnumber){
+        goodsService.editGoods(gid,gname,gdesc,gnumber);
+        return "success";
+    }
+
+    @RequestMapping("addNew")
+    @ResponseBody
+    public String addNew(String gname,String gdesc,int gnumber){
+        goodsService.addNew(gname,gdesc,gnumber);
+        return "success";
+    }
 }
