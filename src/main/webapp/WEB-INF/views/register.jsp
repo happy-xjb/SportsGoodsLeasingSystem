@@ -25,38 +25,57 @@
         var cNickname = false ;
         var cLeasingPassword = false ;
         function register() {
-            //检查是什么类型的用户注册
-            var isAdmin = $("input[name='isAdmin']:checked").val();
-            var username = $('#username').val();
-            var password = $('#password').val();
-            var nickname = $('#nickname').val();
-            var leasingPassword = $('#leasingPassword').val();
+            //检查验证码
+            var code = $('#kaptchaCode').val();
+            code = code.toLowerCase();
+            $.post({
+                url:'${pageContext.request.contextPath}/checkKaptcha',
+                data:{kaptcha:code},
+                success:function (data) {
+                    if (data=='false'){
+                        $('#checkKaptcha').text('验证码错误');
+                        $('#checkKaptcha').css('color','red');
+                        $('#kaptchaImg').attr('src','${pageContext.request.contextPath}/kaptcha?time='+new Date().getTime());
+                    }else if (data=='true'){
+                        $('#checkKaptcha').text('验证码正确');
+                        $('#checkKaptcha').css('color','green');
+                        //检查是什么类型的用户注册
+                        var isAdmin = $("input[name='isAdmin']:checked").val();
+                        var username = $('#username').val();
+                        var password = $('#password').val();
+                        var nickname = $('#nickname').val();
+                        var leasingPassword = $('#leasingPassword').val();
 
-            //管理员注册
-            if (isAdmin==1){
-                if (cUsername&&cPassword&&cNickname){
-                    $.post({
-                        url:'${pageContext.request.contextPath}/user/register',
-                        data:{username:username,password:password,nickname:nickname,isAdmin:isAdmin},
-                    });
-                    alert("注册成功，按确定返回登录");
-                    window.location='${pageContext.request.contextPath}/login';
-                }else{
-                    alert('请正确填写表单信息');
+                        //管理员注册
+                        if (isAdmin==1){
+                            if (cUsername&&cPassword&&cNickname){
+                                $.post({
+                                    url:'${pageContext.request.contextPath}/user/register',
+                                    data:{username:username,password:password,nickname:nickname,isAdmin:isAdmin},
+                                });
+                                alert("注册成功，按确定返回登录");
+                                window.location='${pageContext.request.contextPath}/login';
+                            }else{
+                                alert('请正确填写表单信息');
+                            }
+                        }
+                        if (isAdmin==0){
+                            if (cUsername&&cPassword&&cNickname&&cLeasingPassword){
+                                $.post({
+                                    url:'${pageContext.request.contextPath}/user/register',
+                                    data:{username:username,password:password,nickname:nickname,leasingPassword:leasingPassword,isAdmin:isAdmin},
+                                });
+                                alert("注册成功，按确定返回登录");
+                                window.location='${pageContext.request.contextPath}/login';
+                            }else{
+                                alert('请正确填写表单信息');
+                            }
+                        }
+                    }
+
                 }
-            }
-            if (isAdmin==0){
-                if (cUsername&&cPassword&&cNickname&&cLeasingPassword){
-                    $.post({
-                        url:'${pageContext.request.contextPath}/user/register',
-                        data:{username:username,password:password,nickname:nickname,leasingPassword:leasingPassword,isAdmin:isAdmin},
-                    });
-                    alert("注册成功，按确定返回登录");
-                    window.location='${pageContext.request.contextPath}/login';
-                }else{
-                    alert('请正确填写表单信息');
-                }
-            }
+            })
+
         }
         function checkLeasingPassword() {
             var p1 = $('#leasingPassword').val();
@@ -158,6 +177,10 @@
             return cUsername;
         }
 
+        function changeImg() {
+            $('#checkKaptcha').text('');
+            $('#kaptchaImg').attr('src','${pageContext.request.contextPath}/kaptcha?time='+new Date().getTime());
+        }
     </script>
 </head>
 <body>
@@ -235,6 +258,15 @@
             <div class="col-xs-5">
                 <input onblur="checkLeasingPassword()" type="password" class="form-control" id="leasingPassword2" placeholder="请重新输入租赁密码" >
                 <span id="checkLeasingPassword"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="kaptchaCode" class="col-xs-2 control-label">请输入验证码</label>
+            <div class="col-xs-5">
+                <input  type="text" class="form-control" id="kaptchaCode" placeholder="请输入验证码" >
+                <img id="kaptchaImg" src="${pageContext.request.contextPath}/kaptcha" width="200px" height="50px" onclick="changeImg()">
+                <br>
+                <span id="checkKaptcha"></span>
             </div>
         </div>
         <div class="form-group">
