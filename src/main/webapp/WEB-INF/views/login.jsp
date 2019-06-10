@@ -53,8 +53,8 @@
 
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.jsp">登录</a></li>
-                <li><a href="#">注册</a></li>
+                <li><a href="${pageContext.request.contextPath}/login">登录</a></li>
+                <li><a href="${pageContext.request.contextPath}/register">注册</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
