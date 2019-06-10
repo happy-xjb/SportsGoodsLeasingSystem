@@ -62,6 +62,5 @@ public class OrderServiceImpl implements OrderService {
         Integer number = goods.getNumber();
         goods.setNumber(number+order.getNumber());
         goodsMapper.updateByPrimaryKeySelective(goods);
-        System.out.println("进入了service层");
     }
 }

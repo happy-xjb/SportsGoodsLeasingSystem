@@ -40,12 +40,10 @@ public class BaseController {
         response.setHeader("Pragma", "no-cache");
         response.setContentType("image/jpeg");
         String text = captchaProducer.createText();
-        System.out.println("当前是"+text);
         BufferedImage image = captchaProducer.createImage(text);
         session.removeAttribute("myCode");
         session.setAttribute("myCode", text);
         Object myCode = session.getAttribute("myCode");
-        System.out.println("当前session里是"+myCode);
         ServletOutputStream outputStream = response.getOutputStream();
         ImageIO.write(image,"jpg",outputStream);
     }

@@ -82,12 +82,9 @@ public class GoodsController {
     @RequestMapping("addNew1")
     @ResponseBody
     public String addNew1(HttpServletRequest request, String gname, String gdesc,  String gnumber, @RequestParam(required = false) MultipartFile gimage) throws IOException {
-        System.out.println("接受到的名字为："+gname);
-        System.out.println("接受到的数量为："+gnumber);
         if(gimage!=null){
             String filename = gimage.getOriginalFilename();
             //拿到文件名
-            System.out.println("originalFilename是："+filename);
             //使用UUID给图片重命名，并去掉四个“-”
             String name = UUID.randomUUID().toString().replaceAll("-", "");
             //获取文件的扩展名

@@ -75,9 +75,7 @@ public class UserController {
     @RequestMapping("checkLeasingPassword")
     @ResponseBody
     public String checkLeasingPassword(int uid,String leasingPassword){
-        System.out.println("传入的租赁密码："+leasingPassword);
         User user = userService.verifyLeasingPassword(uid,leasingPassword);
-        System.out.println("查询出的user是："+user);
         if(user==null)  return "false";
         return "true";
     }

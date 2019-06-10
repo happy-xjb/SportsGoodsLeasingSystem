@@ -45,7 +45,6 @@ public class OrderController {
     @RequestMapping("backThis")
     @ResponseBody
     public void backThis(int oid){
-        System.out.println("进入了控制器的方法");
         orderService.backGoods(oid);
     }
 }
