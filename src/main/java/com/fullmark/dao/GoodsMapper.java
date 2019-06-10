@@ -22,4 +22,6 @@ public interface GoodsMapper {
     void updateReduceNumber(Goods goods);
 
     void insertAddNew(Goods goods);
+
+    void insertAddNew1(Goods goods);
 }

@@ -91,4 +91,7 @@
   <insert id="insertAddNew" parameterType="goods">
     insert into goods(name,description,number) values(#{name},#{description},#{number})
   </insert>
+  <insert id="insertAddNew1" parameterType="goods">
+    insert into goods(name,description,number,picture)  values(#{name},#{description},#{number},#{picture})
+  </insert>
 </mapper>

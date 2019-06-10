@@ -27,13 +27,48 @@
     <script>
         var gid;
 
+        function getPath(obj)
+        {
+            if(obj)
+            {
+
+                if (window.navigator.userAgent.indexOf("MSIE")>=1)
+                {
+                    obj.select();
+
+                    return document.selection.createRange().text;
+                }
+
+                else if(window.navigator.userAgent.indexOf("Firefox")>=1)
+                {
+                    if(obj.files)
+                    {
+
+                        return obj.files.item(0).getAsDataURL();
+                    }
+                    return obj.value;
+                }
+                return obj.value;
+            }
+        }
         function commitUpToDate() {
+            var formData = new FormData();
+            var elementById = document.getElementById("gimage");
+            var fileObj = elementById.files[0];
+            var gimage = $('#gimage').val();
+
             var gname = $('#gname2').val();
             var gdesc = $('#gdescription2').val();
             var gnumber = $('#gnumber2').val();
+            formData.append("gimage",fileObj);
+            formData.append("gname",gname);
+            formData.append("gdesc",gdesc);
+            formData.append("gnumber",gnumber);
             $.post({
-                url:"${pageContext.request.contextPath}/goods/addNew",
-                data:{gname:gname,gdesc:gdesc,gnumber:gnumber},
+                url:"${pageContext.request.contextPath}/goods/addNew1",
+                contentType:false,
+                processData:false,
+                data:formData,
                 success:function (data) {
                     if (data == "success"){
                         alert("添加成功！");
@@ -165,6 +200,7 @@
                 <p>用品名称：<input type="text" id="gname2" class="form-control"></p>
                 <p>用品描述：<textarea cols="20" rows="2" id="gdescription2" class="form-control"></textarea></p>
                 <p>用品数量：<input type="number" id="gnumber2" class="form-control"></p>
+                <p>上传用品图片：<form id="uploadForm" enctype="multipart/form-data"><input type="file" name="fileName" id="gimage" class="form-control" accept="image/*"></form></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

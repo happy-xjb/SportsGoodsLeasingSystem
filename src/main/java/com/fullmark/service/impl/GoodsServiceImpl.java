@@ -6,6 +6,8 @@ import com.fullmark.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -52,5 +54,15 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setDescription(gdesc);
         goods.setNumber(gnumber);
         goodsMapper.insertAddNew(goods);
+    }
+
+    @Override
+    public void addNew1(String gname, String gdesc,  int gnumber, String gimage) {
+        Goods goods = new Goods();
+        goods.setName(gname);
+        goods.setDescription(gdesc);
+        goods.setNumber(gnumber);
+        goods.setPicture(gimage);
+        goodsMapper.insertAddNew1(goods);
     }
 }
